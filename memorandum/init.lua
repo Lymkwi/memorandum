@@ -5,7 +5,7 @@ local mname		= "memorandum"
 -----------------------------------------------------------------------------------------------
 -- Boilerplate to support localized strings if intllib mod is installed.
 local S
-if intllib then
+if rawget(_G, "intllib") then
 	S = intllib.Getter()
 else
 	S = function(s) return s end
@@ -106,6 +106,8 @@ minetest.register_craftitem("memorandum:letter", {
 		local player = user:get_player_name()
 		local text = itemstack:get_metadata()
 		local scnt = string.sub (text, -2, -1)
+		local mssg = ""
+		local sgnd = ""
 		if scnt == "00" then
 			mssg = string.sub (text, 1, -3)
 			sgnd = ""
