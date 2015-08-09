@@ -73,8 +73,8 @@ minetest.register_node("memorandum:letter_empty", {
 			return
 		end
 		local meta = minetest.get_meta(pos)
-		fields.text = fields.text
-		fields.signed = fields.signed
+		fields.text = minetest.formspec_escape(fields.text) or ""
+		fields.signed = minetest.formspec_escape(fields.signed) or ""
 		--[[print((sender:get_player_name() or "").." wrote \""..fields.text..
 				"\" to paper at "..minetest.pos_to_string(pos))]]
 		local fdir = minetest.get_node(pos).param2
@@ -178,8 +178,8 @@ minetest.register_node("memorandum:letter_written", {
 		local item = sender:get_wielded_item()
 		if item:get_name() == "memorandum:eraser" then
 			local meta = minetest.get_meta(pos)
-			fields.text = fields.text
-			fields.signed = fields.signed
+			fields.text = minetest.format_escape(fields.text) or ""
+			fields.signed = minetest.format_escape(fields.signed) or ""
 			--[[print((sender:get_player_name() or "").." wrote \""..fields.text..
 				"\" to paper at "..minetest.pos_to_string(pos))]]
 			local fdir = minetest.get_node(pos).param2
@@ -188,8 +188,8 @@ minetest.register_node("memorandum:letter_written", {
 			end
 			meta:set_string("text", fields.text)
 			meta:set_string("signed", "")
-			meta:set_string("infotext", S('%s %s" Unsigned'):format(info,fields.text))
-			if fields.signed ~= "" then
+			meta:set_string("infotext", (S('%s %s" Unsigned') or '%s %s" Unsigned'):format(info,fields.text))
+			if fields.signed and fields.signed ~= "" then
 				meta:set_string("signed", fields.signed)
 				meta:set_string("infotext", info..fields.text..sign..fields.signed)
 			end
