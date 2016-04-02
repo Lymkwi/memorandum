@@ -178,8 +178,8 @@ minetest.register_node("memorandum:letter_written", {
 		local item = sender:get_wielded_item()
 		if item:get_name() == "memorandum:eraser" then
 			local meta = minetest.get_meta(pos)
-			fields.text = minetest.format_escape(fields.text) or ""
-			fields.signed = minetest.format_escape(fields.signed) or ""
+			fields.text = minetest.formspec_escape(fields.text) or ""
+			fields.signed = minetest.formspec_escape(fields.signed) or ""
 			--[[print((sender:get_player_name() or "").." wrote \""..fields.text..
 				"\" to paper at "..minetest.pos_to_string(pos))]]
 			local fdir = minetest.get_node(pos).param2
