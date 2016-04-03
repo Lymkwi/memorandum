@@ -132,6 +132,8 @@ minetest.register_craftitem("memorandum:letter", {
 		local meta = minetest.get_meta(above)
 		local text = itemstack:get_metadata()
 		local scnt = string.sub (text, -2, -1)
+		local mssg = ""
+		local sgnd = ""
 		if scnt == "00" then
 			mssg = string.sub (text, 1, -3)
 			sgnd = ""
@@ -178,8 +180,8 @@ minetest.register_node("memorandum:letter_written", {
 		local item = sender:get_wielded_item()
 		if item:get_name() == "memorandum:eraser" then
 			local meta = minetest.get_meta(pos)
-			fields.text = minetest.format_escape(fields.text) or ""
-			fields.signed = minetest.format_escape(fields.signed) or ""
+			fields.text = minetest.formspec_escape(fields.text) or ""
+			fields.signed = minetest.formspec_escape(fields.signed) or ""
 			--[[print((sender:get_player_name() or "").." wrote \""..fields.text..
 				"\" to paper at "..minetest.pos_to_string(pos))]]
 			local fdir = minetest.get_node(pos).param2
